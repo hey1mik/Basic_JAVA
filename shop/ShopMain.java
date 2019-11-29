@@ -57,5 +57,6 @@ public class ShopMain {
 			mem.memDelete(id, pw);
 
 		}
+		sc.close();
 	}
 }
