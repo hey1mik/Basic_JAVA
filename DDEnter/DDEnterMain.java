@@ -72,9 +72,15 @@ public class DDEnterMain {
 					String ano = sc.nextLine();
 					mDao.memDelete(ano);
 				} else if (code == 4) { // 아티스트 조회 메서드
+					
 					mDao.memSelect();
-				} else if (code == 5) { // 아티스트 검색 메서드
-					mDao.memSearch();
+				} else if (code == 5) {
+					System.out.println("▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲▽▲");
+					System.out.println("▽▲▽▲검색할 아티스트의 이름을 입력해주세요");
+					System.out.print("▽▲▽▲이름>>");
+					sc.nextLine();
+					String aname = sc.nextLine();
+					mDao.memSearch(aname);
 				} else if (code == 6) {
 					System.out.println("<프로그램 종료>");
 					System.exit(0); // 프로그램을 종료하는 코드
@@ -84,7 +90,7 @@ public class DDEnterMain {
 		}
 		
 
-			
+		
 	}		
 		
 }

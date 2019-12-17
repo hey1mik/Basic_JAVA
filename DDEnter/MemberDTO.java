@@ -100,8 +100,8 @@ public class MemberDTO {
 	//4.toString() -> 값이 dto에 제대로 들어있는지 확인하는 역할
 	@Override
 	public String toString() {
-		return "MemberDTO [ano=" + ano + ", aname=" + aname + ", major=" + major + ", groupyn=" + groupyn + ", sal="
-				+ sal + ", regdate=" + regdate + "]";
+		return ano + "\t" + aname + "\t" + major + "\t" + groupyn +"\t"+ sal + "\t"
+				   + regdate;
 	}
 
 	
