@@ -1,104 +1,144 @@
-  
 package board;
 
 import java.util.Scanner;
 
 public class BoardMain {
-
+	
+	static String session = "NO";
+	static String userid = "";
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		BoardDAO bDao = new BoardDAO();
-		BoardDTO bDto = new BoardDTO();
+		MemberDAO mDao = new MemberDAO();
+		
 		
 		while(true) {
-			System.out.println("¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾");
-			System.out.println("¿À¸® °Ô½ÃÆÇ");
-			System.out.println("¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾");
+			System.out.println("â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥");
+			System.out.println("ì˜¤ë¦¬ ê²Œì‹œíŒ");
+			System.out.println("loginì¤‘ì¸ ì•„ì´ë”” >> "+userid);
+			System.out.println("â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥");
 			bDao.BoardSelect();
-			System.out.println("¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾");
-			System.out.println("¢½¢¾¢½¢¾1.°Ô½Ã±Û µî·Ï");
-			System.out.println("¢½¢¾¢½¢¾2.°Ô½Ã±Û ¼öÁ¤");
-			System.out.println("¢½¢¾¢½¢¾3.°Ô½Ã±Û »èÁ¦");
-			System.out.println("¢½¢¾¢½¢¾4.°Ô½Ã±Û Á¶È¸");
-			System.out.println("¢½¢¾¢½¢¾5.°Ô½Ã±Û °Ë»ö");
-			System.out.println("¢½¢¾¢½¢¾6.°Ô½Ã±Û Á¤·Ä");
-			System.out.println("¢½¢¾¢½¢¾7.»ó¼¼ °Ô½Ã±Û");
-			System.out.println("¢½¢¾¢½¢¾8.¸¸µçÀÌ");
-			System.out.println("¢½¢¾¢½¢¾9.ÇÁ·Î±×·¥ Á¾·á");
-			System.out.println("¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾");
+			System.out.println("â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥");
+			System.out.println("â™¡â™¥â™¡â™¥0.ë¡œê·¸ì¸");
+			System.out.println("â™¡â™¥â™¡â™¥1.ê²Œì‹œê¸€ ë“±ë¡");
+			System.out.println("â™¡â™¥â™¡â™¥2.ê²Œì‹œê¸€ ìˆ˜ì •");
+			System.out.println("â™¡â™¥â™¡â™¥3.ê²Œì‹œê¸€ ì‚­ì œ");
+			System.out.println("â™¡â™¥â™¡â™¥4.ê²Œì‹œê¸€ ì¡°íšŒ");
+			System.out.println("â™¡â™¥â™¡â™¥5.ê²Œì‹œê¸€ ê²€ìƒ‰");
+			System.out.println("â™¡â™¥â™¡â™¥6.ê²Œì‹œê¸€ ì •ë ¬");
+			System.out.println("â™¡â™¥â™¡â™¥7.ìƒì„¸ ê²Œì‹œê¸€");
+			System.out.println("â™¡â™¥â™¡â™¥8.ë¡œê·¸ì•„ì›ƒ");
+			System.out.println("â™¡â™¥â™¡â™¥9.ë§Œë“ ì´");
+			System.out.println("â™¡â™¥â™¡â™¥10.í”„ë¡œê·¸ëž¨ ì¢…ë£Œ");
+			if(BoardMain.session.equals("YES")) {
+				System.out.println("â™¡â™¥â™¡â™¥ "+BoardMain.userid+" ë‹˜ ìž¬ë°©ë¬¸ì„ í™˜ì˜í•©ë‹ˆë‹¤.");
+			}
+			System.out.println("â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥");
 			int code;
 				while(true) {
-			System.out.print("¢½¢¾¢½¢¾¹øÈ£>>");
+			System.out.print("â™¡â™¥â™¡â™¥ë²ˆí˜¸>>");
 			code = sc.nextInt();
-				if(code>=1 && code<=9) {
+				if(code>=0 && code<=9) {
 					break;
 				} else {
-					System.out.println("¢½¢¾¢½¢¾1~9 »çÀÌÀÇ ¼ýÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+					System.out.println("â™¡â™¥â™¡â™¥1~9 ì‚¬ì´ì˜ ìˆ«ìžë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”");
 					continue;
 				}
 
 			}
-			
-				if(code==1) {
-					System.out.println("¢½¢¾¢½¢¾»õ °Ô½Ã±ÛÀ» µî·ÏÇÕ´Ï´Ù.");
-					System.out.print("¢½¢¾¢½¢¾Á¦¸ñ>>");
+				if(code==0) {
+					System.out.println("â™¡â™¥â™¡â™¥ë¡œê·¸ì¸ í™”ë©´ìž…ë‹ˆë‹¤.");
+					System.out.print("â™¡â™¥â™¡â™¥ID ìž…ë ¥>>");
+					sc.nextLine();
+					String id = sc.nextLine();
+					System.out.print("â™¡â™¥â™¡â™¥ë¹„ë°€ë²ˆí˜¸ ìž…ë ¥>>");
+					String pw = sc.nextLine();
+					mDao.mLogin(id, pw);
+				}
+					
+				else if(code==1) {
+					if(BoardMain.session.equals("NO")) {
+						System.out.println("â™¡â™¥â™¡â™¥ ë¡œê·¸ì¸ì´ í•„ìš”í•œ ê¸°ëŠ¥ìž…ë‹ˆë‹¤.");
+						continue;
+					}
+					
+					System.out.println("â™¡â™¥â™¡â™¥ìƒˆ ê²Œì‹œê¸€ì„ ë“±ë¡í•©ë‹ˆë‹¤.");
+					System.out.print("â™¡â™¥â™¡â™¥ì œëª©>>");
 					sc.nextLine();
 					String title = sc.nextLine();
-					System.out.print("¢½¢¾¢½¢¾³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä>>");
+					System.out.print("â™¡â™¥â™¡â™¥ë‚´ìš©ì„ ìž…ë ¥í•˜ì„¸ìš”>>");
 					String content = sc.nextLine();
-					System.out.print("¢½¢¾¢½¢¾ÀÛ¼ºÀÚ>>");
-					String writer = sc.nextLine();
+					String writer = BoardMain.userid;
+					bDao.BoardInsert(title, content, writer);
 					
 				}
 				else if(code==2) {
-					System.out.println("¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾");
-					System.out.println("¢½¢¾¢½¢¾°Ô½Ã±ÛÀ» ¼öÁ¤ÇÏ¼¼¿ä");
-					System.out.print("¢½¢¾¢½¢¾¼öÁ¤ÇÒ °Ô½Ã±Û ¹øÈ£>>");
+					
+					System.out.println("â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥");
+					System.out.println("â™¡â™¥â™¡â™¥ê²Œì‹œê¸€ì„ ìˆ˜ì •í•˜ì„¸ìš”");
+					System.out.print("â™¡â™¥â™¡â™¥ìˆ˜ì •í•  ê²Œì‹œê¸€ ë²ˆí˜¸>>");
 					int bno = sc.nextInt();
-					System.out.print("¢½¢¾¢½¢¾°Ô½Ã±Û Á¦¸ñ>>");
-					sc.nextLine();
-					String title = sc.nextLine();
-					System.out.print("¢½¢¾¢½¢¾°Ô½Ã±Û ³»¿ë>>");
-					String content = sc.nextLine();
-					System.out.print("¢½¢¾¢½¢¾°Ô½Ã±Û ÀÛ¼ºÀÚ>>");
-					String writer = sc.nextLine();
+					String writer = bDao.checkWriter(bno);
+					
+					if(writer.equals(userid)) {
+						System.out.print("â™¡â™¥â™¡â™¥ê²Œì‹œê¸€ ì œëª©>>");
+						sc.nextLine();
+						String title = sc.nextLine();
+						System.out.print("â™¡â™¥â™¡â™¥ê²Œì‹œê¸€ ë‚´ìš©>>");
+						String content = sc.nextLine();
+						bDao.BoardUpdate(bno,title,content);
+						
+					} else {
+						System.out.println("â™¡â™¥â™¡â™¥ê¸€ ìž‘ì„±ìžë§Œ ìˆ˜ì •í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
+					}
 					
 				}
 				else if(code==3) {
-					System.out.println("¢½¢¾¢½¢¾»èÁ¦ÇÏ°í½ÍÀº °Ô½Ã±Û ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
-					System.out.print("¢½¢¾¢½¢¾¹øÈ£>>");
+					System.out.println("â™¡â™¥â™¡â™¥ì‚­ì œí•˜ê³ ì‹¶ì€ ê²Œì‹œê¸€ ë²ˆí˜¸ë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”");
+					System.out.print("â™¡â™¥â™¡â™¥ë²ˆí˜¸>>");
 					int bno = sc.nextInt();
-				
+					String writer = bDao.checkWriter(bno);
+					if(writer.equals(userid)) { 
+						bDao.BoardDelete(bno);
+					} else {
+						System.out.println("â™¡â™¥â™¡â™¥ê¸€ ìž‘ì„±ìžë§Œ ì‚­ì œí•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
+					}
+					
 				}
 				else if(code==4) {
-					System.out.println("¢½¢¾¢½¢¾ÀüÃ¼ °Ô½Ã±ÛÀ» Á¶È¸ÇÕ´Ï´Ù.");
+					System.out.println("â™¡â™¥â™¡â™¥ì „ì²´ ê²Œì‹œê¸€ì„ ì¡°íšŒí•©ë‹ˆë‹¤.");
 					bDao.BoardSelect();
 				}
 				else if(code==5) {
-					System.out.print("¢½¢¾¢½¢¾°Ô½Ã±Û Á¦¸ñ °Ë»ö>>");
+					System.out.print("â™¡â™¥â™¡â™¥ê²Œì‹œê¸€ ì œëª©+ë‚´ìš© ê²€ìƒ‰>>");
 					sc.nextLine();
-					String title = sc.nextLine();
-					bDao.BoardSearch(title);
+					String keyword = sc.nextLine();
+					bDao.BoardSearch(keyword);
 				}
 				else if(code==6) {
-					
+					System.out.println("â™¡â™¥â™¡â™¥ê²Œì‹œê¸€ì„ ì¡°íšŒìˆœìœ¼ë¡œ ì •ë ¬í•©ë‹ˆë‹¤.");
+					bDao.BoardSort();
 				}
 				else if(code==7) {
-					System.out.print("¢½¢¾¢½¢¾º¸°í½ÍÀº °Ô½Ã±Û ¹øÈ£>>");
+					System.out.print("â™¡â™¥â™¡â™¥ë³´ê³ ì‹¶ì€ ê²Œì‹œê¸€ ë²ˆí˜¸>>");
 					int bno = sc.nextInt();
 					bDao.BoardView(bno);
 				}
 				else if(code==8) {
-					System.out.println("¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾¢½¢¾");
-					System.out.println("¢½¢¾¢½¢¾ Name : DD Board Program");
-					System.out.println("¢½¢¾¢½¢¾ Made by : HEY1");
-					System.out.println("¢½¢¾¢½¢¾ Verion : 1.7");
-					System.out.println("¢½¢¾¢½¢¾ Use : JAVA, ORACLE");
-					System.out.println("¢½¢¾¢½¢¾ Date : 2019.12.17");
-					System.out.println("¢½¢¾¢½¢¾ kwon5943@gmail.com");
+					System.out.println("â™¡â™¥â™¡â™¥");
 				}
 				else if(code==9) {
-					System.out.println("¢½¢¾ÇÁ·Î±×·¥ Á¾·á¢½¢¾");
+					System.out.println("â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥â™¡â™¥");
+					System.out.println("â™¡â™¥â™¡â™¥ Name : DD Board Program");
+					System.out.println("â™¡â™¥â™¡â™¥ Made by : HEY1");
+					System.out.println("â™¡â™¥â™¡â™¥ Verion : 1.7");
+					System.out.println("â™¡â™¥â™¡â™¥ Use : JAVA, ORACLE");
+					System.out.println("â™¡â™¥â™¡â™¥ Date : 2019.12.17");
+					System.out.println("â™¡â™¥â™¡â™¥ kwon5943@gmail.com");
+				}
+				else if(code==10) {
+					System.out.println("â™¡â™¥í”„ë¡œê·¸ëž¨ ì¢…ë£Œâ™¡â™¥");
 					System.exit(0);
 				}
 				
