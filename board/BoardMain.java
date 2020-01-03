@@ -126,7 +126,16 @@ public class BoardMain {
 					bDao.BoardView(bno);
 				}
 				else if(code==8) {
-					System.out.println("♡♥♡♥");
+					System.out.println("♡♥♡♥로그아웃 화면입니다.");
+					if(BoardMain.session.equals("YES")) { // 로그인
+						System.out.println("♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥");
+						System.out.println("♡♥♡♥" + BoardMain.userid+ "님 로그아웃 되었습니다.");
+						BoardMain.session = "NO";
+						BoardMain.userid = "";
+					} else {
+						System.out.println("♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥");
+						System.out.println("♡♥♡♥ 로그인이 필요한 기능입니다.");
+					}
 				}
 				else if(code==9) {
 					System.out.println("♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥♡♥");
