@@ -1,0 +1,31 @@
+--회원테이블
+
+DROP TABLE tbl_member;
+CREATE TABLE tbl_member(
+ id VARCHAR2(50) PRIMARY KEY,
+ pw VARCHAR2(30) NOT NULL,
+ name VARCHAR2(100) NOT NULL,
+ phone VARCHAR2(100) NOT NULL,
+ regdate DATE DEFAULT SYSDATE
+);
+
+INSERT INTO tbl_member(id,pw,name,phone)
+VALUES('donut', '1234', '도넛', '010-1111-1112');
+INSERT INTO tbl_member(id,pw,name,phone)
+VALUES('cake', '1234', '케이크', '010-1111-1113');
+INSERT INTO tbl_member(id,pw,name,phone)
+VALUES('tiramisu', '1234', '티라미슈', '010-1111-1113');
+INSERT INTO tbl_member(id,pw,name,phone)
+VALUES('scone', '1234', '스콘', '010-1111-1114');
+INSERT INTO tbl_member(id,pw,name,phone)
+VALUES('pudding', '1234', '푸딩', '010-1111-1115');
+
+commit;
+
+SELECT * FROM tbl_member;
+
+UPDATE tbl_member
+SET phone = '010-1111-1116'
+WHERE id = 'cake';
+
+commit;
