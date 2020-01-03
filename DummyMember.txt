@@ -29,3 +29,321 @@ SET phone = '010-1111-1116'
 WHERE id = 'cake';
 
 commit;
+
+-- 기획사 
+
+CREATE TABLE tbl_enter(
+
+    ano VARCHAR2(20) PRIMARY KEY, -- 소속 아티스트번호
+
+    aname VARCHAR2(50) NOT NULL, -- 아티스트 이름
+
+    major VARCHAR2(50) NOT NULL, -- 분야 (연기, 가수..)
+
+    groupyn VARCHAR2 (5) NOT NULL, -- 그룹 유무(y/n)
+
+    groupnm VARCHAR2 (100), --그룹이름
+
+    sal NUMBER NOT NULL, --연봉
+
+    regdate DATE DEFAULT SYSDATE
+
+);
+
+ 
+
+-- 시퀀스 // 내가 설정한 값에 자동으로 +1해주는 코드, 치명적인 단점 : 에러가 떠도 +1씩 증가함
+
+CREATE SEQUENCE seq_enter
+
+    START WITH 1    -- 시작값
+
+    INCREMENT BY 1  -- 증가값
+
+    NOCYCLE;        -- 순환X 계속 무한대로 증가
+
+ -- MAXVALUE 20     -- 최대값
+
+ -- MINVALUE 1      -- 최소값
+
+ -- CYCLE/NOCYCLE   -- 반복여부
+
+ 
+
+ INSERT INTO tbl_enter(ano, aname, major, groupyn, sal)
+
+ VALUES(seq_enter.NEXTVAL, '김수현', '배우', 'n', 9000);
+
+ INSERT INTO tbl_enter(ano, aname, major, groupyn, sal)
+
+ VALUES(seq_enter.NEXTVAL, '김민희', '배우', 'n', 9900);
+
+ INSERT INTO tbl_enter(ano, aname, major, groupyn, sal)
+
+ VALUES(seq_enter.NEXTVAL, '정우성', '배우', 'n', 9300);
+
+ INSERT INTO tbl_enter(ano, aname, major, groupyn, sal)
+
+ VALUES(seq_enter.NEXTVAL, '박지윤', '가수', 'n', 9800);
+
+ INSERT INTO tbl_enter(ano, aname, major, groupyn, sal)
+
+ VALUES(seq_enter.NEXTVAL, '박보검', '배우', 'n', 9200);
+
+ COMMIT;
+
+ 
+
+ SELECT*FROM tbl_enter;
+
+ 
+
+DELETE FROM tbl_enter
+
+WHERE ano = 21;
+
+DELETE FROM tbl_enter
+
+WHERE ano = 22;
+
+DELETE FROM tbl_enter
+
+WHERE ano = 23;
+
+DELETE FROM tbl_enter
+
+WHERE ano = 24;
+
+DELETE FROM tbl_enter
+
+WHERE ano = 25;
+
+SELECT*FROM tbl_enter;
+
+ 
+
+ALTER TABLE tbl_enter
+
+    DROP COLUMN groupnm;
+
+SELECT*FROM tbl_enter;    
+
+DESC tbl_enter;
+
+COMMIT;
+
+
+-- 서점관리 테이블 생성
+
+CREATE TABLE tbl_book (
+
+    bno Varchar2(20) PRIMARY KEY,   -- 책번호
+
+    bname VARCHAR2(100) NOT NULL , -- 책이름
+
+    price NUMBER NOT NULL,          -- 책 가격
+
+    company VARCHAR2(100) NOT NULL,-- 출판사
+
+    writer VARCHAR2(100) NOT NULL, -- 저자
+
+    regdate DATE DEFAULT SYSDATE    -- 출판일자
+
+ 
+
+);
+
+ 
+
+ 
+
+CREATE SEQUENCE seq_book
+
+    START WITH 1
+
+    INCREMENT BY 1
+
+    NOCYCLE;
+
+ 
+
+INSERT INTO tbl_book(bno, bname, price, company, writer)
+
+VALUES(seq_book.NEXTVAL, 'DO it 자바프로그래밍 입문', 25000, '이지퍼블리싱', '박은종');
+
+INSERT INTO tbl_book(bno, bname, price, company, writer)
+
+VALUES(seq_book.NEXTVAL, '아프리카 피망이다', 14000, '쌤앤파커스', '김난도');
+
+INSERT INTO tbl_book(bno, bname, price, company, writer)
+
+VALUES(seq_book.NEXTVAL, '소설가 팔보씨의 일일', 8000, '문학과 지성사', '팔바');
+
+INSERT INTO tbl_book(bno, bname, price, company, writer)
+
+VALUES(seq_book.NEXTVAL, '고모 사피엔스', 19800, '김영사', '유발 아리랑');
+
+INSERT INTO tbl_book(bno, bname, price, company, writer)
+
+VALUES(seq_book.NEXTVAL, '개쩌는 사람들의 7가지 습관 ', 17000, '김영사', '스티븐 코비적');
+
+SELECT*FROM tbl_book;
+
+DESC tbl_book;
+
+COMMIT;
+
+ 
+--게시판 테이블
+
+DROP TABLE tbl_board;
+
+CREATE TABLE tbl_board(
+
+    bno NUMBER PRIMARY KEY,
+
+    title VARCHAR2(200) NOT NULL,
+
+    content VARCHAR2(500) NOT NULL,
+
+    writer VARCHAR2(100) NOT NULL,
+
+    viewcnt NUMBER DEFAULT 0, 
+
+    regdate DATE DEFAULT SYSDATE
+
+);
+
+ 
+
+DROP SEQUENCE seq_board;
+
+CREATE SEQUENCE seq_board
+
+    START WITH 1
+
+    INCREMENT BY 1
+
+    NOCYCLE;
+
+    
+
+INSERT INTO tbl_board(bno, title, content, writer)
+
+VALUES(seq_board.NEXTVAL, '손해 절대 안보는 주식tip', '아직도 주식이 어려우시나요?', '기몌널리스트');
+
+SELECT * FROM tbl_board;
+
+INSERT INTO tbl_board(bno, title, content, writer)
+
+VALUES(seq_board.NEXTVAL, '베터 콜 사울', '시즌5 언제나오냐', '사울팬');
+
+INSERT INTO tbl_board(bno, title, content, writer)
+
+VALUES(seq_board.NEXTVAL, '겨울왕국 재밌나요?', '올라프가 인간돼서 엘사랑 결혼한다는데 진짜임?', '진짜겠냐');
+
+INSERT INTO tbl_board(bno, title, content, writer)
+
+VALUES(seq_board.NEXTVAL, '미세먼지 vs 시베리아 칼바람', '3한 4미 이거 진짜네요..', '미세미세');
+
+INSERT INTO tbl_board(bno, title, content, writer)
+
+VALUES(seq_board.NEXTVAL, '찹쌀 탕수육 먹고싶네요', '마라탕이랑 같이 먹고싶네요...', '스틸헝그리');
+
+ 
+
+COMMIT;
+
+ 
+
+DELETE FROM tbl_board
+
+WHERE bno = 2;
+
+ 
+
+COMMIT;
+
+ 
+
+SELECT *
+
+FROM tbl_board
+
+WHERE title like '%요%' OR
+
+content like '%요%';
+
+ 
+
+ 
+
+SELECT *
+
+FROM tbl_board
+
+WHERE bno = 3;
+
+ 
+
+COMMIT;
+
+ 
+
+ 
+
+-- 은행 테이블 
+
+ 
+
+DROP TABLE tbl_bank;
+
+CREATE TABLE tbl_bank(
+
+bno NUMBER PRIMARY KEY, -- 계좌번호
+
+bname VARCHAR2(50) NOT NULL, --예금주
+
+pw VARCHAR2(50) NOT NULL, --계좌비밀번호
+
+money NUMBER DEFAULT 0, --계좌 잔액
+
+regdate DATE DEFAULT SYSDATE -- 계좌개설일
+
+);
+
+DROP SEQUENCE seq_bank;
+
+CREATE SEQUENCE seq_bank
+
+    START WITH 101
+
+    INCREMENT BY 1
+
+    NOCYCLE;
+
+    
+
+INSERT INTO tbl_bank(bno,bname,pw)
+
+VALUES(seq_bank.NEXTVAL,'HEY1','1234');
+
+INSERT INTO tbl_bank(bno,bname,pw)
+
+VALUES(seq_bank.NEXTVAL,'혜로리','1234');
+
+INSERT INTO tbl_bank(bno,bname,pw)
+
+VALUES(seq_bank.NEXTVAL,'기몌기몌','1234');
+
+INSERT INTO tbl_bank(bno,bname,pw)
+
+VALUES(seq_bank.NEXTVAL,'너구리','1234');
+
+INSERT INTO tbl_bank(bno,bname,pw)
+
+VALUES(seq_bank.NEXTVAL,'오리','1234');
+
+ 
+
+commit;
