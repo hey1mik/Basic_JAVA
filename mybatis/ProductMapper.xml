@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pdt">
+	 <select id="already" resultType="Integer">
+		SELECT COUNT(*) FROM tbl_product
+		WHERE pname = #{pname}
+	 </select>
+	 <update id="cntPlus">
+	 	UPDATE tbl_product
+	 	SET cnt = cnt + #{cnt}
+	 	WHERE pname = #{pname}
+	 </update>
+	 <insert id="insert">
+	 	INSERT INTO tbl_product(pno, pname, company, price, cnt)
+	 	VALUES(seq_product.NEXTVAL, #{pname}, #{company}, #{price}, #{cnt})
+	 </insert>
+	 <select id="select" resultType="market.ProductDTO">
+	 	SELECT * FROM tbl_product
+	 	ORDER BY cnt DESC, pno
+	 </select>
+	 <delete id="delete">
+	 	DELETE from tbl_product
+	 	WHERE pname = #{pname}
+	 </delete>
+	 <update id="update">
+	 	UPDATE tbl_product
+	 	SET pname = #{newPname},
+	 		company = #{company},
+	 		price = #{price}
+	 	WHERE pname = #{pname}	
+	 </update>
+	 <select id="search" resultType="market.ProductDTO">
+	 	SELECT * FROM tbl_product
+	 	WHERE pname like '%'||#{keyword}||'%'
+	 	ORDER BY pno
+	 </select>	
+	 <select id="check" resultType="market.ProductDTO">
+	 	SELECT * FROM tbl_product
+	 	WHERE pno = #{pno} AND cnt >= #{cnt}
+	 </select>
+</mapper>
