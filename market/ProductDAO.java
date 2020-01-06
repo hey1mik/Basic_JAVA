@@ -15,6 +15,7 @@ public class ProductDAO {
 	SqlSession sqlSession;
 	int result;
 	List<ProductDTO> list;
+	ProductDTO pDto = new ProductDTO();
 	Boolean flag; // default값 false
 	// 제품 등록 & 추가 기능 작동시 기존에 등록된 제품인지 최초입고제품인지 판별하는 기능
 	
@@ -42,7 +43,8 @@ public class ProductDAO {
 			HashMap<String, Object> map = new HashMap<>();
 			map.put("cnt", cnt);
 			map.put("pname", pname);
-			result = sqlSession.update("pdt.cntPlus",map);
+			map.put("flag", "plus");
+			result = sqlSession.update("pdt.cntchange",map);
 			if(result>0) {
 				System.out.println("♧◇ 제품 재입고를 완료하였습니다.");
 			} else {
@@ -128,6 +130,7 @@ public class ProductDAO {
 			}
 		if(list.isEmpty()){
 			System.out.println("♧◇ "+keyword+" (으)로 검색되는 상품이 존재하지 않습니다.");
+			return;
 		}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -151,5 +154,33 @@ public class ProductDAO {
 			e.printStackTrace();
 		}
 		return flag;
+	}
+	
+	public void selectSellPdt(int sno, int sCnt) {
+		sqlSession = sqlSessionFactory.openSession(true); 
+		try {
+		
+			pDto = sqlSession.selectOne("selectSellPdt",sno);
+			int tPrice = (pDto.getPrice() * sCnt); 
+			System.out.println("♧◇ 판매하고자 하는 물건, 구매수량과 총 가격 입니다.");
+			System.out.println(pDto.getPno() + "\t" + pDto.getPname() + "\t" + sCnt + "\t" +tPrice);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public void cntMinusPdt(int sno, int sCnt) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			HashMap<String, Integer> map = new HashMap<>();
+			map.put("sno", sno);
+			map.put("sCnt", sCnt);
+			result = sqlSession.update("pdt.cntminus",map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

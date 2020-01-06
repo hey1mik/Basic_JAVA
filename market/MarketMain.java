@@ -1,5 +1,6 @@
 package market;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class MarketMain {
@@ -65,16 +66,30 @@ public class MarketMain {
 					sc.nextLine();
 					String keyword = sc.nextLine();
 					pDao.searchPdt(keyword);
-					System.out.print("♧◇ 판매하고자 하는 제품 번호>>");
-					int sno = sc.nextInt();
-					System.out.print("♧◇ 수량 >>");
-					int sCnt = sc.nextInt();
-					boolean check = pDao.checkPdt(sno, sCnt);
-					if(check) {
-						System.out.println("판매해라");
-					} else {
-						System.out.println("♧◇ 판매할 상품이 존재하지 않거나 수량이 부족합니다.");
+					while(true) {
+						System.out.print("♧◇ 판매하고자 하는 제품 번호>>");
+						int sno = sc.nextInt();
+						System.out.print("♧◇ 수량 >>");
+						int sCnt = sc.nextInt();
+						boolean check = pDao.checkPdt(sno, sCnt);
+						if(check) {
+							pDao.selectSellPdt(sno, sCnt);
+							int result = sDao.insertSale(sno, sCnt);
+							if(result > 0) {
+								pDao.cntMinusPdt(sno, sCnt);
+								System.out.println("♧◇ 판매성공하였습니다.");
+							} else {
+								System.out.println("♧◇ 매출 리스트 업데이트에 실패하였습니다.");
+							}
+							break;
+							//tbl_sale에 판매한 기록을 저장
+							// 판매하는 제품명, 수량, 총가격
+						} else {
+							System.out.println("♧◇ 판매할 상품이 존재하지 않거나 수량이 부족합니다.");
+							continue;
+						}
 					}
+				
 					
 				} else if(code == 2) {
 					System.out.println("♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇");
@@ -162,7 +177,8 @@ public class MarketMain {
 					pDao.searchPdt(keyword);
 					
 				} else if(code == 7) {
-					
+					System.out.println("♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇♧◇");
+					sDao.dashBoard();
 				} else if(code == 8) {
 					System.out.println("♧◇ [Msg] Exit the program.");
 					System.exit(0);
