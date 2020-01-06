@@ -7,16 +7,21 @@
 		SELECT COUNT(*) FROM tbl_product
 		WHERE pname = #{pname}
 	 </select>
-	 <update id="cntPlus">
-	 	UPDATE tbl_product
-	 	SET cnt = cnt + #{cnt}
+	 <update id="cntchange">
+	 	UPDATE tbl_product SET
+	 	<if test="flag == 'plus'">
+	 	cnt = cnt + #{cnt}
+	 	</if>
+	 	<if test="flag == 'minus'">
+	 	cnt = cnt -  #{cnt}
+	 	</if>
 	 	WHERE pname = #{pname}
 	 </update>
 	 <insert id="insert">
 	 	INSERT INTO tbl_product(pno, pname, company, price, cnt)
 	 	VALUES(seq_product.NEXTVAL, #{pname}, #{company}, #{price}, #{cnt})
 	 </insert>
-	 <select id="select" resultType="market.ProductDTO">
+	 <select id="select" resultType="ProductDTO">
 	 	SELECT * FROM tbl_product
 	 	ORDER BY cnt DESC, pno
 	 </select>
@@ -31,13 +36,22 @@
 	 		price = #{price}
 	 	WHERE pname = #{pname}	
 	 </update>
-	 <select id="search" resultType="market.ProductDTO">
+	 <select id="search" resultType="ProductDTO">
 	 	SELECT * FROM tbl_product
 	 	WHERE pname like '%'||#{keyword}||'%'
 	 	ORDER BY pno
 	 </select>	
-	 <select id="check" resultType="market.ProductDTO">
+	 <select id="check" resultType="ProductDTO">
 	 	SELECT * FROM tbl_product
 	 	WHERE pno = #{pno} AND cnt >= #{cnt}
 	 </select>
+	 <select id="selectSellPdt" resultType="ProductDTO">
+	 	SELECT * FROM tbl_product
+	 	WHERE pno = #{sno}
+	 </select>
+	 <update id="cntminus">
+	 	UPDATE tbl_product
+	 	SET cnt = cnt - #{sCnt}
+	 	WHERE pno = #{sno}
+	 </update>
 </mapper>
