@@ -74,11 +74,4 @@ public class SaleDAO {
 		}
 	}
 	
-	public void totalCnt() {
-		
-	}
-	
-	public void totalPrice() {
-		
-	}
 }
