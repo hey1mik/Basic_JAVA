@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>input(입력) 관련 태그</title>
+</head>
+<body>
+	<form name="" action="" method="">
+		<input type="text" name="" placeholder="text" value="약오르지" readonly="readonly"><br>
+		<input type="password" name="" placeholder="password">
+		<input type="hidden" name="" placeholder="hidden"><br>
+		<input type="search" name="" placeholder="search"><br>
+		<input type="url" name="" placeholder="url"><br>
+		<input type="email" name="" placeholder="email"><br>
+		<input type="tel" name="" placeholder="tel"><br>
+		<input type="number" name="" placeholder="number"><br>
+		<input type="range" name="" placeholder="range"><br>
+
+		<hr>
+		<!-- radio는 하나만 선택하는 버튼이고, 그러기위해선 선택할 그룹을 만들어줘야한다. 그룹을 만드는 방법이 name을 쓰는 것이다. -->
+		<input type="file" name=""><br>
+		<label><input type="radio" name="subject">JAVA</label>
+		<label><input type="radio" name="subject">Python</label>
+		<label><input type="radio" name="subject">Oracle</label>
+
+		<!-- checkbox는 중복체크 가능 -->
+		<label><input type="checkbox" name="subject">복숭아</label>
+		<label><input type="checkbox" name="subject">포도</label>
+		<label><input type="checkbox" name="subject">수박</label>
+		<hr>
+
+		<input type="button" name="" value="제출">
+		<input type="submit" name="">
+		<input type="reset" name="">
+		<!-- button : 함수를 입력해줘야 동작이 생김. 유효성 체크하고 submit하고 싶으면 button을 사용함! -->
+		<!-- submit : submit을 위해 만들어진 버튼. direct로 데이터를 전달해버림 -->
+		<!-- name 값 : java 에서 쓰는 것 -->
+		<!-- id, class 값 : 웹에서 쓰는 것 -->
+
+	</form>
+
+</body>
+</html>
