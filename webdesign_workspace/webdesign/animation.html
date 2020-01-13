@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>애니메이션 효과</title>
+	<style type="text/css">
+		p{
+			font-size: 25px;
+		}
+		span {
+			font-size: 100px;
+			color:#00cec9;
+			font-weight: bold;
+			/*설정할 애니메이션 이름*/
+			animation-name: twinkle;
+			/*애니메이션의 반복 횟수*/
+			animation-iteration-count: infinite;
+			/*애니메이션의 실행 시간*/
+			animation-duration: 0.1s;
+		}
+
+		@keyframes twinkle{
+			0% {opacity: 0;}
+			100% {opacity: 1;}
+
+		/* 동작이 딱 두개일 때
+			from{opacity: 0;}
+			to{opacity: 1;}
+		*/
+		}
+	</style>
+</head>
+<body>
+	<p> <span>도토리</span> 동선씨 호호호 </p>
+</body>
+</html>
