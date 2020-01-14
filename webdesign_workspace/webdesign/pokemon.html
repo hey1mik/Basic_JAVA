@@ -24,10 +24,107 @@
 			padding: 7px;
 			display: inline-block;
 		}
+		.type_info {
+			text-align: right;
+		}
+		.type {
+			width: 50px;
+			height: 20px;
+			color: white;
+			font-size: 14px;
+			display: inline-block;
+			box-sizing: border-box;
+			text-align: center;
+			border-radius: 10px;
+		}
+		.water {
+			background-color: #0fbcf9;
+		}
+		.poison {
+			background-color: #3c40c6;
+		}
+		.name_info {
+			font-weight: bold;
+			font-size: 19px;
+			border-bottom: 1.5px solid rgba(0,0,0,0.3);
+			padding: 5px 0;
+		}
+		.img_info {
+			mar
+			border-bottom: 1.5px solid rgba(0,0,0,0.3);
+		}
+		img.pokemon {
+			margin: 0 auto;
+			display: block; /*block 하면 가로 다 내꺼하는데 그 내꺼를 margin으로 처리함*/
+		}
+		table, th, td {
+			border: 1px solid lightgray;
+		}
+		table {
+			width: 225px;
+			margin: 0 auto;
+			background-color: #D4F4FA;
+			box-sizing: border-box;
+			border-collapse: collapse;
+		}
+		th {
+			text-align: left;
+			width:60px;
+		}
+		td {
+			text-align: right;
+		}
+		div.link_info {
+			border-top: 1px solid rgba(0,0,0,0.3);
+			text-align: right;
+			padding-top: 3px;
+		}
+		div.detail_info {
+			margin-bottom: 5px;
+		}
+		span.like_span {
+			background-image: url('../img/ic_favorite.png');
+			background-repeat: no-repeat;
+			line-height: 18px;
+			padding-left: 20px;
+			/*padding+content = background
+			  895 : content
+			  ♡ " background(padding+content)*/
+		}
+
 	</style>
 </head>
 <body>
 	<div class="card">
+		<div class="type_info">
+			<span class="type water">물</span>
+			<span class="type poison">독</span>
+		</div>	
+		<div class="name_info">
+			No.393 팽도리
+		</div>
+		<div class="img_info">
+			<img src="../img/펭도리.png" class="pokemon">
+		</div>	
+		<div class="detail_info">
+			<table>
+				<tr>
+					<th>분류</th>
+					<td>펭귄 포켓몬</td>
+				</tr>
+				<tr>
+					<th>키</th>
+					<td>0.4m</td>
+				</tr>	
+				<tr>
+					<th>몸무게</th>
+					<td>5.2kg</td>
+				</tr>	
+			</table>
+		</div>
+		<div class="link_info">
+			<span class="like_span">895</span>
+		</div>
 	</div>
 </body>
 </html>
