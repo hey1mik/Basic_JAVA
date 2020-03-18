@@ -241,3 +241,78 @@ WHERE sal IN (SELECT MAX(sal)
           GROUP BY deptno);
 
 부서별로 가장 급여를 많이 받는 사람의 연봉
+
+
+
+
+
+2020.03.18게시판 더미데이터
+DROP SEQUENCE seq_board;
+CREATE SEQUENCE seq_board
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+    
+DROP TABLE tbl_board CASCADE CONSTRAINTS;
+CREATE TABLE tbl_board(
+    bno number(10,0),
+    type CHAR(4) NOT NULL,
+    title VARCHAR2(200) NOT NULL,
+    content VARCHAR2(4000) NOT NULL,
+    writer VARCHAR2(200) NOT NULL,
+    viewcnt NUMBER DEFAULT 0,
+    replycnt NUMBER DEFAULT 0,
+    goodcnt NUMBER DEFAULT 0,
+    regdate DATE DEFAULT SYSDATE,
+    updatedate DATE DEFAULT SYSDATE,
+    show CHAR(1) DEFAULT 'y',
+    ref NUMBER NOT NULL,
+    re_step NUMBER NOT NULL,
+    re_level NUMBER NOT NULL
+);              
+    
+    
+--게시판 테이블 PK KEY 추가
+ALTER TABLE tbl_board ADD CONSTRAINT pk_board
+PRIMARY KEY(bno);
+
+DESCRIBE tbl_board;
+
+select * from tbl_board;
+
+--게시물 총 15건 추가! ref=1, re_step=1, re_level=0 type free, writer=가입한 유저
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글1', '강아지', '헤롤', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글2', '고양이', '루비', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글3', '달고나', '유미', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글4', '커피', '웅이', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글5', '마스크', '순돌이', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글6', '넷플릭스', '바비', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글7', '신디사이저', '미미', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글8', '기타', '새이', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글9', '요플레', '무빙건', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글10', '페페로니피자', '다마고치', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글11', '향수', '기네스', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글12', '팔찌', '디지몬', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글13', '후디', '민희', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글14', '긴치마', '소빈', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글15', '부츠', '쿠루지마', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글16', '스카프', '유나', 1, 1, 0);
+
+commit; 
+SELECT * FROM tbl_board;
