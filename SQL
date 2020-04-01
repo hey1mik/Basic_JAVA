@@ -243,10 +243,76 @@ WHERE sal IN (SELECT MAX(sal)
 부서별로 가장 급여를 많이 받는 사람의 연봉
 
 
+DROP TABLE tbl_pdt;
+CREATE TABLE tbl_pdt(
+    pno NUMBER PRIMARY KEY,
+    pname VARCHAR2(500) NOT NULL,
+    ptype VARCHAR2(200) NOT NULL,
+    pmemo VARCHAR2(1000),
+    price NUMBER DEFAULT 0,
+    avail_cnt NUMBER DEFAULT 0,
+    sale_cnt NUMBER DEFAULT 0,
+    p_img VARCHAR2(300),
+    regdate DATE DEFAULT SYSDATE
+);
+
+DROP SEQUENCE seq_pdt;
+CREATE SEQUENCE seq_pdt
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+    
+INSERT INTO tbl_pdt(pno, pname, ptype, pmemo, price, avail_cnt, sale_cnt, p_img)
+VALUES (seq_pdt.NEXTVAL, '그린페이스트', '소스', '부드럽고 풍부한 맛', 6900, 10, 91, 'grocery1.jpg');
+INSERT INTO tbl_pdt(pno, pname, ptype, pmemo, price, avail_cnt, sale_cnt, p_img)
+VALUES (seq_pdt.NEXTVAL, '레드페이스트', '소스', '매콤 달콤 오묘한 맛', 6900, 10, 85, 'grocery2.jpg');
+INSERT INTO tbl_pdt(pno, pname, ptype, pmemo, price, avail_cnt, sale_cnt, p_img)
+VALUES (seq_pdt.NEXTVAL, '코코넛 밀크', '액체류', '부드러운 풍미를 더해주는', 4300, 10, 93, 'grocery3.jpg');
+INSERT INTO tbl_pdt(pno, pname, ptype, pmemo, price, avail_cnt, sale_cnt, p_img)
+VALUES (seq_pdt.NEXTVAL, '통후추', '조미료', '모든 요리의 완성', 5800, 10, 50, 'grocery4.jpg');
+INSERT INTO tbl_pdt(pno, pname, ptype, pmemo, price, avail_cnt, sale_cnt, p_img)
+VALUES (seq_pdt.NEXTVAL, '페페론치노', '조미료', '감질맛 나는 매운 맛', 6300, 10, 49, 'grocery5.jpg');
+INSERT INTO tbl_pdt(pno, pname, ptype, pmemo, price, avail_cnt, sale_cnt, p_img)
+VALUES (seq_pdt.NEXTVAL, '통밀식빵', '베이커리', '어느 음식에 곁들여 먹어도 최고', 3800, 10, 37, 'grocery6.jpg');
+INSERT INTO tbl_pdt(pno, pname, ptype, pmemo, price, avail_cnt, sale_cnt, p_img)
+VALUES (seq_pdt.NEXTVAL, '최고급 감자튀김', '냉동식품','에어프라이기에 7분이면 완성!', 9900, 10, 125, 'grocery7.jpg');
+INSERT INTO tbl_pdt(pno, pname, ptype, pmemo, price, avail_cnt, sale_cnt, p_img)
+VALUES (seq_pdt.NEXTVAL, '팟타이누들', '면', '쫄깃하고 라이트한 다이어트 누들', 3500, 10, 40, 'grocery8.jpg');
+INSERT INTO tbl_pdt(pno, pname, ptype, pmemo, price, avail_cnt, sale_cnt, p_img)
+VALUES (seq_pdt.NEXTVAL, '글루틴 프리 스파게티', '면', '맛은 고소, 식감은 탱글!', 3500, 10, 88, 'grocery9.jpg');
+INSERT INTO tbl_pdt(pno, pname, ptype, pmemo, price, avail_cnt, sale_cnt, p_img)
+VALUES (seq_pdt.NEXTVAL, '바질페스토소스', '소스', '친환경 파스타 소스', 6900, 10, 116, 'grocery10.jpg');
+INSERT INTO tbl_pdt(pno, pname, ptype, pmemo, price, avail_cnt, sale_cnt, p_img)
+VALUES (seq_pdt.NEXTVAL, '아몬드 우유 10팩', '액체류', '소화가 잘돼요!', 8800, 10, 85, 'grocery11.jpg');
+INSERT INTO tbl_pdt(pno, pname, ptype, pmemo, price, avail_cnt, sale_cnt, p_img)
+VALUES (seq_pdt.NEXTVAL, '유기농 두유 10팩', '액체류', '라떼 만들기에도 딱~', 8800, 10, 70, 'grocery12.jpg');
+
+COMMIT;
+
+select * from tbl_member;
+
+DROP TABLE tbl_member;
+CREATE TABLE tbl_member(
+    id VARCHAR2(100) PRIMARY KEY,
+    pw VARCHAR2(200) NOT NULL,
+    name VARCHAR2(100) NOT NULL,
+    phone VARCHAR2(50) NOT NULL,
+    email VARCHAR2(100) NOT NULL,
+    postcode VARCHAR2(30) NOT NULL,
+    addr1 VARCHAR2(300) NOT NULL,
+    addr2 VARCHAR2(300) NOT NULL,
+    useon VARCHAR2(20) NOT NULL,
+    primaryon VARCHAR2(20) NOT NULL,
+    locon VARCHAR2(20) DEFAULT 'false',
+    eventon VARCHAR2(20) DEFAULT 'false',
+    useyn VARCHAR2(200) DEFAULT 'n',
+    regdate DATE DEFAULT SYSDATE           
+);
+
+select * from tbl_member;
 
 
 
-2020.03.18게시판 더미데이터
 DROP SEQUENCE seq_board;
 CREATE SEQUENCE seq_board
     START WITH 1
@@ -266,11 +332,15 @@ CREATE TABLE tbl_board(
     regdate DATE DEFAULT SYSDATE,
     updatedate DATE DEFAULT SYSDATE,
     show CHAR(1) DEFAULT 'y',
-    ref NUMBER NOT NULL,
-    re_step NUMBER NOT NULL,
-    re_level NUMBER NOT NULL
+    ref NUMBER DEFAULT 1,
+    re_step NUMBER DEFAULT 1,
+    re_level NUMBER DEFAULT 0
 );              
-    
+ALTER TABLE tbl_board MODIFY(type VARCHAR(40));
+ALTER TABLE tbl_recipe MODIFY (type VARCHAR(40));
+
+
+
     
 --게시판 테이블 PK KEY 추가
 ALTER TABLE tbl_board ADD CONSTRAINT pk_board
@@ -281,38 +351,130 @@ DESCRIBE tbl_board;
 select * from tbl_board;
 
 --게시물 총 15건 추가! ref=1, re_step=1, re_level=0 type free, writer=가입한 유저
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글1', '강아지', '헤롤', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글2', '고양이', '루비', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글3', '달고나', '유미', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글4', '커피', '웅이', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글5', '마스크', '순돌이', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글6', '넷플릭스', '바비', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글7', '신디사이저', '미미', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글8', '기타', '새이', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글9', '요플레', '무빙건', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글10', '페페로니피자', '다마고치', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글11', '향수', '기네스', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글12', '팔찌', '디지몬', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글13', '후디', '민희', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글14', '긴치마', '소빈', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글15', '부츠', '쿠루지마', 1, 1, 0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글16', '스카프', '유나', 1, 1, 0);
+INSERT INTO tbl_board(bno, type, title, content, writer)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글1', '강아지', '혜로리');
+INSERT INTO tbl_board(bno, type, title, content, writer)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글2', '고양이', '혜로리');
+INSERT INTO tbl_board(bno, type, title, content, writer)
+VALUES(seq_board.NEXTVAL, 'free', '테스트 게시글3', '달고나', '혜로리');
 
-commit; 
-SELECT * FROM tbl_board;
+commit;
+SELECT * FROM tbl_board
+WHERE bno = 425;
+
+SELECT * 
+FROM ( SELECT rownum AS rnum, A.* 
+FROM( SELECT bno, title, writer, name, updatedate, viewcnt, replycnt, goodcnt, show 
+FROM tbl_board b, tbl_member m 
+WHERE b.writer = m.name AND b.show = 'y' AND (title LIKE '%%' OR content LIKE '%%' OR writer LIKE '%%')
+ORDER BY b.bno DESC )A 
+) WHERE rnum BETWEEN 1 AND 400;  
+             
+  -- 검색 %keyword% 
+  -- 목록 %%
+             
+             
+             
+-- 댓글 테이블 생성
+DROP SEQUENCE seq_reply;
+CREATE SEQUENCE seq_reply  
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+
+DROP TABLE tbl_reply;
+CREATE TABLE tbl_reply (
+    rno NUMBER,
+    type CHAR(4) NOT NULL,
+    content VARCHAR2(2000) NOT NULL,
+    writer VARCHAR2(100) NOT NULL,
+    regdate DATE DEFAULT SYSDATE,
+    bno NUMBER NOT NULL
+);
+
+--tbl_reply에 PK 제약조건 추가
+ALTER TABLE tbl_reply 
+ADD CONSTRAINT pk_reply_rno
+PRIMARY KEY(rno);
+
+-- 댓글 FK 게시글과 참조, 게시글 삭제시 참조하고 있는 댓글 연쇄 삭제를 위한 CASCADE 설정
+ALTER TABLE tbl_reply 
+ADD CONSTRAINT fk_reply_rno
+FOREIGN KEY(bno) REFERENCES tbl_board(bno)
+ON DELETE CASCADE;
+
+
+commit;
+
+INSERT INTO tbl_reply(rno, type, content, writer,bno)
+VALUES (seq_reply.NEXTVAL, 'f', '실험용입니다.', '스키피', 421);
+INSERT INTO tbl_reply(rno, type, content, writer,bno)
+VALUES (seq_reply.NEXTVAL, 'f', '새로고침 버튼이 하얀색으로 깜빡여야합니다.', '스키피', 421);
+commit;
+
+
+
+select * from tbl_reply;
+select * from tbl_board;
+
+DROP SEQUENCE seq_recipe;
+CREATE SEQUENCE seq_recipe
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+    
+DROP TABLE tbl_recipe CASCADE CONSTRAINTS;
+CREATE TABLE tbl_recipe(
+    bno number(10,0),
+    img VARCHAR(300) NOT NULL,
+    type CHAR(4) NOT NULL,
+    title VARCHAR2(200) NOT NULL,
+    content VARCHAR2(4000) NOT NULL,
+    writer VARCHAR2(200) NOT NULL,
+    viewcnt NUMBER DEFAULT 0,
+    replycnt NUMBER DEFAULT 0,
+    goodcnt NUMBER DEFAULT 0,
+    regdate DATE DEFAULT SYSDATE,
+    updatedate DATE DEFAULT SYSDATE,
+    show CHAR(1) DEFAULT 'y',
+    ref NUMBER DEFAULT 1,
+    re_step NUMBER DEFAULT 1,
+    re_level NUMBER DEFAULT 0
+);              
+    
+    
+--게시판 테이블 PK KEY 추가
+ALTER TABLE tbl_board ADD CONSTRAINT pk_board
+PRIMARY KEY(bno);
+
+DESCRIBE tbl_board;
+
+select * from tbl_recipe;
+
+--게시물 총 15건 추가! ref=1, re_step=1, re_level=0 type free, writer=가입한 유저
+INSERT INTO tbl_recipe(bno, img, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_recipe.NEXTVAL, 'x1.jpg', 'reci', '당근 레드 커리', '당근 레드 커리 레시피입니다.', '혜로리', 1, 1, 0);
+INSERT INTO tbl_recipe(bno, img, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_recipe.NEXTVAL, 'x2.jpg', 'reci', '과일 토스트', '과일 토스트 레시피입니다.', '혜로리', 1, 1, 0);
+INSERT INTO tbl_recipe(bno, img, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_recipe.NEXTVAL, 'x13.jpg', 'reci', '콩고기 버거', '콩고기 버거 레시피입니다.', '혜로리', 1, 1, 0);
+INSERT INTO tbl_recipe(bno, img, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_recipe.NEXTVAL, 'x14.jpg', 'reci', '토마토 갈릭 피자', '토마토 갈릭 피자 레시피입니다.', '혜로리', 1, 1, 0);
+INSERT INTO tbl_recipe(bno, img, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_recipe.NEXTVAL, 'x5.jpg', 'reci', '팔라펠 걀렛', '팔라펠 걀렛 레시피입니다.', '혜로리', 1, 1, 0);
+INSERT INTO tbl_recipe(bno, img, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_recipe.NEXTVAL, 'x6.jpg', 'reci', '아보카도 샐러드', '아보카도 샐러드 레시피입니다.', '혜로리', 1, 1, 0);
+INSERT INTO tbl_recipe(bno, img, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_recipe.NEXTVAL, 'x7.jpg', 'reci', '베리 오트밀 요거트', '베리 오트밀 요거트 레시피입니다.', '혜로리', 1, 1, 0);
+INSERT INTO tbl_recipe(bno, img, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_recipe.NEXTVAL, 'x8.jpg', 'reci', '요거트 페이스트 토스트', '요거트 페이스트 토스트 레시피입니다.', '혜로리', 1, 1, 0);
+INSERT INTO tbl_recipe(bno, img, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_recipe.NEXTVAL, 'x9.jpg', 'reci', '바질 페스토 파스타', '바질 페스토 파스타 레시피입니다.', '혜로리', 1, 1, 0);
+INSERT INTO tbl_recipe(bno, img, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_recipe.NEXTVAL, 'x17.jpg', 'reci', '이유식맛 오트밀', '이유식맛 오트밀 레시피입니다.', '혜로리', 1, 1, 0);
+INSERT INTO tbl_recipe(bno, img, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_recipe.NEXTVAL, 'x11.jpg', 'reci', '무화과 샐러드', '무화과 샐러드 레시피입니다.', '혜로리', 1, 1, 0);
+INSERT INTO tbl_recipe(bno, img, type, title, content, writer, ref, re_step, re_level)
+VALUES(seq_recipe.NEXTVAL, 'x12.jpg', 'reci', '청포도 플레이트', '청포도 플레이트 레시피입니다.', '혜로리', 1, 1, 0);
+
+commit;
